@@ -5,11 +5,14 @@ from preferences_handler import *
 
 if __name__ == '__main__':
     cookie_json_handler = CookieHandler()
-    print(cookie_json_handler.load_cookies_from_file())
+    print(cookie_json_handler.load_from_file())
     browser_handler = BrowserHandler()
     twitch_handler = TwitchHandler(browser_handler)
     preferences_json_handler = PreferencesHandler()
-    print(preferences_json_handler.save_preferences_to_file())
+    preferences_json_handler.channel_add("skill4ltu")
+    print(preferences_json_handler.save_to_file())
+    print(preferences_json_handler.options)
+    print(preferences_json_handler.channels)
     # print(preferences_json_handler.load_from_file())
     """print(browser_handler.browser_start())
     print(browser_handler.browser_import_cookies(cookie_json_handler.cookie_data(), "https://www.twitch.tv"))

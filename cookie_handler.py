@@ -1,4 +1,4 @@
-from json_handler import JsonFileHandler
+from json_handler import JsonFileHandler, JsonErrorState
 
 
 class CookieHandler(JsonFileHandler):
@@ -10,7 +10,7 @@ class CookieHandler(JsonFileHandler):
     def cookie_data(self):
         return self._cookie_data
 
-    def _repair_cookie_data(self):
+    def _repair_cookie_data(self) -> bool:
         if self._cookie_data is None:
             return False
         for cookie in self._cookie_data:
@@ -18,12 +18,17 @@ class CookieHandler(JsonFileHandler):
                 cookie["sameSite"] = "None"
         return True
 
-    def load_from_file(self, path: str = "data/cookies.json"):
-        super().load_from_file(path)
+    def load_from_file(self, path: str = "data/cookies.json") -> JsonErrorState:
+        state = super().load_from_file(path)
+        if state is not None:
+            return state
         self._repair_cookie_data()
 
-    def load_from_string(self, string: str):
-        super().load_from_string(string)
+    def load_from_string(self, string: str) -> JsonErrorState:
+        state = super().load_from_string(string)
+        if state is not None:
+            return state
+        self._repair_cookie_data()
 
-    def save_to_file(self, path: str = "data/cookies.json"):
-        super().save_to_file(path)
+    def save_to_file(self, path: str = "data/cookies.json") -> JsonErrorState:
+        return super().save_to_file(path)

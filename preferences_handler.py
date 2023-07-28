@@ -1,5 +1,5 @@
 from enum import Enum
-from json_handler import JsonFileHandler
+from json_handler import JsonFileHandler, JsonErrorState
 
 
 class ChannelErrorState(Enum):
@@ -18,33 +18,30 @@ class PreferencesHandler(JsonFileHandler):
     def channels(self):
         return self._channels
 
-    def channel_add(self, channel_name: str):
+    def channel_add(self, channel_name: str) -> ChannelErrorState:
         if channel_name == "":
             return ChannelErrorState.CHANNEL_NAME_IS_EMPTY
         if channel_name in self._channels:
             return ChannelErrorState.CHANNEL_ALREADY_EXISTS
         self._channels.append(channel_name)
-        return None
 
-    def channel_remove(self, channel_name: str):
+    def channel_remove(self, channel_name: str) -> ChannelErrorState:
         if channel_name == "":
             return ChannelErrorState.CHANNEL_NAME_IS_EMPTY
         if channel_name not in self._channels:
             return ChannelErrorState.CHANNEL_DOES_NOT_EXIST
         self._channels.remove(channel_name)
-        return None
 
-    def channel_move_to_top(self, channel_name: str):
+    def channel_move_to_top(self, channel_name: str) -> ChannelErrorState:
         if channel_name == "":
             return ChannelErrorState.CHANNEL_NAME_IS_EMPTY
         if channel_name not in self._channels:
             return ChannelErrorState.CHANNEL_DOES_NOT_EXIST
         self._channels.remove(channel_name)
         self._channels.insert(0, channel_name)
-        return None
 
-    def load_from_file(self, path: str = "data/preferences.json"):
-        super().load_from_file(path)
+    def load_from_file(self, path: str = "data/preferences.json") -> JsonErrorState:
+        return super().load_from_file(path)
 
-    def save_to_file(self, path: str = "data/preferences.json"):
-        super().save_to_file(path)
+    def save_to_file(self, path: str = "data/preferences.json") -> JsonErrorState:
+        return super().save_to_file(path)

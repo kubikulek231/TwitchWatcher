@@ -17,7 +17,7 @@ class JsonFileHandler:
     def __init__(self):
         self.debug = False
 
-    def save_to_file(self, path: str):
+    def save_to_file(self, path: str) -> JsonErrorState:
         try:
             directory = os.path.dirname(path)
             if directory:
@@ -34,9 +34,8 @@ class JsonFileHandler:
             if self.debug:
                 print(e)
             return JsonErrorState.JSON_UNHANDLED_EXCEPTION_OCCURRED
-        return None
 
-    def load_from_file(self, path: str):
+    def load_from_file(self, path: str) -> JsonErrorState:
         try:
             with open(path, "r") as json_file:
                 self.__dict__.update(json.load(json_file))
@@ -48,9 +47,8 @@ class JsonFileHandler:
             if self.debug:
                 print(e)
             return JsonErrorState.JSON_UNHANDLED_EXCEPTION_OCCURRED
-        return None
 
-    def load_from_string(self,  json_string: str):
+    def load_from_string(self,  json_string: str) -> JsonErrorState:
         try:
             self.__dict__.update(json.loads(json_string))
         except json.JSONDecodeError:
@@ -59,4 +57,3 @@ class JsonFileHandler:
             if self.debug:
                 print(e)
             return JsonErrorState.JSON_UNHANDLED_EXCEPTION_OCCURRED
-        return None

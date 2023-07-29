@@ -16,6 +16,7 @@ class JsonErrorState(Enum):
 class JsonFileHandler:
     def __init__(self):
         self.debug = False
+        self._json_file = None
 
     def save_to_file(self, path: str) -> JsonErrorState:
         try:
@@ -23,7 +24,7 @@ class JsonFileHandler:
             if directory:
                 os.makedirs(directory, exist_ok=True)
             with open(path, "w+") as json_file:
-                json.dump(self.__dict__, json_file)
+                json.dump(self._json_file, json_file, indent=4)
         except FileNotFoundError:
             return JsonErrorState.JSON_SAVE_DIRECTORY_NOT_FOUND
         except IsADirectoryError:
@@ -38,7 +39,7 @@ class JsonFileHandler:
     def load_from_file(self, path: str) -> JsonErrorState:
         try:
             with open(path, "r") as json_file:
-                self.__dict__.update(json.load(json_file))
+                self._json_file = json.load(json_file)
         except FileNotFoundError:
             return JsonErrorState.JSON_SAVE_DIRECTORY_NOT_FOUND
         except json.JSONDecodeError:
@@ -50,7 +51,7 @@ class JsonFileHandler:
 
     def load_from_string(self,  json_string: str) -> JsonErrorState:
         try:
-            self.__dict__.update(json.loads(json_string))
+            self._json_file = json.loads(json_string)
         except json.JSONDecodeError:
             return JsonErrorState.JSON_FAILED_TO_DECODE
         except Exception as e:

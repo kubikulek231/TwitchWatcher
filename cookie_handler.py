@@ -19,15 +19,17 @@ class CookieHandler(JsonFileHandler):
         return True
 
     def load_from_file(self, path: str = "data/cookies.json") -> JsonErrorState:
-        state = super().load_from_file(path)
-        if state is not None:
-            return state
+        error_state = super().load_from_file(path)
+        if error_state is not None:
+            return error_state
+        self._cookie_data = self._json_file
         self._repair_cookie_data()
 
     def load_from_string(self, string: str) -> JsonErrorState:
-        state = super().load_from_string(string)
-        if state is not None:
-            return state
+        error_state = super().load_from_string(string)
+        if error_state is not None:
+            return error_state
+        self._cookie_data = self._json_file
         self._repair_cookie_data()
 
     def save_to_file(self, path: str = "data/cookies.json") -> JsonErrorState:

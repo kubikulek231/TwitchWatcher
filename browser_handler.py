@@ -19,7 +19,7 @@ class BrowserHandler:
     def tab_index(self):
         return self._tab_index
 
-    def browser_import_cookies(self, cookie_data: list, url: str) -> None:
+    def browser_import_cookies(self, cookie_data: dict, url: str) -> None:
         self.driver.get(url)
         for cookie in cookie_data:
             self.driver.add_cookie(cookie)

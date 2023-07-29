@@ -1,1 +1,9 @@
-{"debug": false, "options": {"app_run_on_start": false}, "_channels": ["skill4ltu"]}
+{
+    "channels": [
+        "skill4ltu",
+        "dakillzor"
+    ],
+    "options": {
+        "app_run_on_start": false
+    }
+}

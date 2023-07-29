@@ -73,14 +73,16 @@ class Watcher:
             except self._queue.Empty:
                 pass
 
-    def _routine(self, input_data_container: WatcherInputDataContainer, stop_event: Event):
+    def _routine(self, input_data_container: WatcherInputDataContainer, stop_event: Event) -> None:
         browser_handler = BrowserHandler()
-        browser_handler.browser_import_cookies(input_data_container.channels, input_data_container.cookie_data)
         twitch_handler = TwitchHandler(browser_handler=browser_handler)
-        preferences_handler = PreferencesHandler()
-        browser_handler.browser_start()
         output_data_container = WatcherOutputDataContainer()
+
+        browser_handler.browser_import_cookies(input_data_container.cookie_data, "https://www.twitch.tv/")
+        browser_handler.browser_start()
+
         while not stop_event.is_set():
             output_data_container.routine_state = WatcherRoutineState.STARTING
             self._queue.put(output_data_container)
             time.sleep(1)
+

@@ -1,7 +1,6 @@
 {
     "channels": [
-        "skill4ltu",
-        "dakillzor"
+	"skill4ltu"
     ],
     "options": {
         "app_run_on_start": false

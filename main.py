@@ -1,5 +1,5 @@
 from watcher import Watcher
-from data_container import WatcherInputDataContainer
+from watcher_data_container import WatcherInputDataContainer
 from cookie_handler import CookieHandler
 from preferences_handler import PreferencesHandler
 import time
@@ -12,9 +12,8 @@ if __name__ == '__main__':
     input_data_container = WatcherInputDataContainer(preferences_handler.channels, cookie_handler.cookie_data)
     watcher = Watcher(input_data_container)
     watcher.start()
-    time.sleep(2)
-    print(watcher.get_output_data().routine_state)
-    time.sleep(2)
-    watcher.stop()
+    while True:
+        print(watcher.get_output_data().__dict__)
+        time.sleep(1)
 
 

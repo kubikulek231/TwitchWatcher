@@ -24,47 +24,51 @@ class UIHandlerMain:
         self.channels = channels
 
     @staticmethod
-    def _show_logo() -> None:
-        print("---------------------------------------------\n"
-              "                 TwitchWatcher               \n"
-              "---------------------------------------------")
+    def show_logo() -> None:
+        print(" --------------- TwitchWatcher --------------- \n")
 
     def _show_info(self) -> None:
-        print(" Status:")
-        print(f" Preferences: {'successfully' if self.are_preferences_loaded else 'not '} loaded")
-        print(f" Cookies: {'successfully' if self.are_cookies_loaded else 'not '} loaded")
+        print(" - Status:")
+        print(f"    Preferences: {'successfully' if self.are_preferences_loaded else 'not '} loaded")
+        print(f"    Cookies: {'successfully' if self.are_cookies_loaded else 'not '} loaded")
 
     def _show_channels(self) -> None:
         channel_list = self.channels
-        print("---------------------------------------------\n"
-              " Channels:")
+        print(""
+              " - Channels:")
 
         if not channel_list:
             print(" No channels added.")
             return
 
+        self.print_channel_bar(channel_list)
+
+    @staticmethod
+    def print_channel_bar(channel_list: list, channels_per_line: int = 3):
         channels_per_line = 3
-        channel_string = ""
+        channel_string = "   "
         for i, channel in enumerate(channel_list, 0):
             if i != 0:
                 channel_string += ","
             if i % channels_per_line == 0 and i != 0:
-                channel_string += "\n"
-            channel_string += f" ({i+1}){channel}"
+                channel_string += "\n   "
+            channel_string += f" ({i + 1}){channel}"
         print(channel_string)
 
     def _show_options(self) -> None:
         options = [
-            "---------------------------------------------",
-            " 1)   Run",
-            " 2)   Add new channel",
-            " 3)   Remove channel",
-            f" 4)   Run on startup: {self.options['app_run_on_start']}",
-            f" 5)   Save on exit: {self.options['app_save_on_exit']}",
-            " 6)   Save current settings",
-            " 7)   Load cookies from clipboard",
-            " 0)   Exit",
-            "---------------------------------------------"
+            "",
+            " 1)  Run",
+            " 2)  Add new channel",
+            " 3)  Remove channel",
+            " 4)  Move channel up",
+            " 5)  Move channel down",
+            f" 6)  Run on startup: {self.options['app_run_on_start']}",
+            f" 7)  Save on exit: {self.options['app_save_on_exit']}",
+            " 8)  Save current settings",
+            " 9)  Load cookies from clipboard",
+            " 0)  Exit",
+            ""
         ]
 
         options_string = "\n".join(options)
@@ -74,17 +78,17 @@ class UIHandlerMain:
     def _get_option() -> int:
         while True:
             try:
-                option = int(input("Enter option: "))
-                if option in range(8):
+                option = int(input(" Enter option: "))
+                if option in range(10):
                     return option
                 else:
-                    print("Invalid option. Try again.")
+                    print(" Invalid option. Try again.")
             except ValueError:
-                print("Invalid option. Try again.")
+                print(" Invalid option. Try again.")
 
     def run(self) -> int:
         UICleaner.clear_console()
-        self._show_logo()
+        self.show_logo()
         self._show_info()
         self._show_channels()
         self._show_options()

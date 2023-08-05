@@ -1,19 +1,17 @@
-from safe_input import SafeInput
-
 
 class UIHandlerSettings:
 
     @staticmethod
-    def input_channel_name() -> str:
-        print(" Press ESC to return.")
-        safe_input = SafeInput()
+    def input_channel() -> str:
+        print("")
+        print(" Enter '_' to return.")
         while True:
             try:
-                channel = safe_input.safe_input(" Enter channel name: ")
-                if channel is None:
+                channel = input(" Enter channel name: ")
+                if channel == '_':
                     break
                 if channel == "":
-                    print(" Channel cannot be empty.")
+                    print(" Channel name cannot be empty.")
                     continue
                 return channel
             except ValueError:
@@ -21,12 +19,15 @@ class UIHandlerSettings:
 
     @staticmethod
     def input_cookie_json_file() -> str:
-        safe_input = SafeInput()
+        print("")
+        print(" Enter '_' to return.")
         while True:
             try:
-                print(" Press ESC to return.")
-                cookie_file = safe_input.safe_input(" Paste cookie JSON from clipboard: ")
-                if cookie_file is None:
+                print(" Pasted JSON must have the compact format.")
+                print(" Use online formatter like https://jsonformatter.curiousconcept.com/")
+                cookie_file = input(" Paste cookie JSON from clipboard: ")
+                print("")
+                if cookie_file == '_':
                     break
                 if cookie_file == "":
                     print(" Cookie JSON cannot be empty.")
@@ -34,6 +35,7 @@ class UIHandlerSettings:
                 return cookie_file
             except ValueError:
                 print(" Invalid cookie JSON. Try again.")
+
 
 
 

@@ -6,6 +6,8 @@ class ChannelErrorState(Enum):
     CHANNEL_DOES_NOT_EXIST = "Channel does not exist."
     CHANNEL_ALREADY_EXISTS = "Cannot add a channel that already exists."
     CHANNEL_NAME_IS_EMPTY = "Channel name cannot be empty."
+    CHANNEL_ALREADY_ON_TOP = "Channel already on top."
+    CHANNEL_ALREADY_ON_BOTTOM = "Channel already on bottom."
 
 
 class PreferencesHandler(JsonFileHandler):
@@ -24,6 +26,13 @@ class PreferencesHandler(JsonFileHandler):
     @property
     def options(self):
         return self._preferences["options"]
+
+    def option_set(self, option_name: str, option_value: bool) -> bool:
+        try:
+            self._preferences["options"][option_name] = option_value
+        except KeyError:
+            return False
+        return True
 
     def channel_add(self, channel_name: str) -> ChannelErrorState:
         if channel_name == "":
@@ -49,6 +58,30 @@ class PreferencesHandler(JsonFileHandler):
             return ChannelErrorState.CHANNEL_DOES_NOT_EXIST
         self._preferences["channels"].remove(channel_name)
         self._preferences["channels"].insert(0, channel_name)
+
+    def channel_move_up(self, channel_name: str) -> ChannelErrorState:
+        if channel_name == "":
+            return ChannelErrorState.CHANNEL_NAME_IS_EMPTY
+        channel_name = channel_name.lower()
+        if channel_name not in self._preferences["channels"]:
+            return ChannelErrorState.CHANNEL_DOES_NOT_EXIST
+        index = self._preferences["channels"].index(channel_name)
+        if index == 0:
+            return ChannelErrorState.CHANNEL_ALREADY_ON_TOP
+        self._preferences["channels"].remove(channel_name)
+        self._preferences["channels"].insert(index - 1, channel_name)
+
+    def channel_move_down(self, channel_name: str) -> ChannelErrorState:
+        if channel_name == "":
+            return ChannelErrorState.CHANNEL_NAME_IS_EMPTY
+        channel_name = channel_name.lower()
+        if channel_name not in self._preferences["channels"]:
+            return ChannelErrorState.CHANNEL_DOES_NOT_EXIST
+        index = self._preferences["channels"].index(channel_name)
+        if index == len(self._preferences["channels"]) - 1:
+            return ChannelErrorState.CHANNEL_ALREADY_ON_BOTTOM
+        self._preferences["channels"].remove(channel_name)
+        self._preferences["channels"].insert(index + 1, channel_name)
 
     def load_from_file(self, path: str = "data/preferences.json") -> JsonErrorState:
         error_state = super().load_from_file(path)

@@ -14,7 +14,6 @@ class UIHandlerRun:
         self._watcher = Watcher(input_data_container)
 
     def _watcher_working(self) -> None:
-        print()
         print(f" {UIDataManager.get_current_time_string()} @User: watcher START requested")
         print("           Press the ESC key to stop anytime")
         try:

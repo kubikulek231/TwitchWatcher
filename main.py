@@ -19,7 +19,7 @@ if __name__ == "__main__":
         skipped = False
         UIHandlerMain.show_logo()
         print(" - Starting in 10 seconds")
-        print("   Press Ctrl+C to cancel")
+        print("    Press Ctrl+C to cancel")
         print("")
         try:
             for i in range(10, 0, -1):

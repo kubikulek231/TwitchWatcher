@@ -44,8 +44,8 @@ class Watcher:
     def get_output_data(self) -> WatcherOutputDataContainer:
         if self._queue is not None:
             try:
-                return self._queue.get()
-            except self._queue.Empty:
+                return self._queue.get(block=False)
+            except Exception as e:
                 pass
 
     def _routine(self, input_data_container: WatcherInputDataContainer, stop_event: Event) -> None:

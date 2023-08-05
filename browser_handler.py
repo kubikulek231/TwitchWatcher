@@ -49,7 +49,10 @@ class BrowserHandler:
 
     def browser_close(self) -> bool:
         if self._driver is not None:
-            self._driver.quit()
+            try:
+                self._driver.quit()
+            except Exception as e:
+                pass
             self._driver = None
             return True
         return False

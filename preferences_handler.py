@@ -13,7 +13,8 @@ class PreferencesHandler(JsonFileHandler):
         super().__init__()
         self._preferences = {
             "channels": [],
-            "options": {"app_run_on_start": False}
+            "options": {"app_run_on_start": False,
+                        "app_save_on_exit": True}
         }
 
     @property
@@ -27,6 +28,7 @@ class PreferencesHandler(JsonFileHandler):
     def channel_add(self, channel_name: str) -> ChannelErrorState:
         if channel_name == "":
             return ChannelErrorState.CHANNEL_NAME_IS_EMPTY
+        channel_name = channel_name.lower()
         if channel_name in self._preferences["channels"]:
             return ChannelErrorState.CHANNEL_ALREADY_EXISTS
         self._preferences["channels"].append(channel_name)
@@ -34,6 +36,7 @@ class PreferencesHandler(JsonFileHandler):
     def channel_remove(self, channel_name: str) -> ChannelErrorState:
         if channel_name == "":
             return ChannelErrorState.CHANNEL_NAME_IS_EMPTY
+        channel_name = channel_name.lower()
         if channel_name not in self._preferences["channels"]:
             return ChannelErrorState.CHANNEL_DOES_NOT_EXIST
         self._preferences["channels"].remove(channel_name)
@@ -41,6 +44,7 @@ class PreferencesHandler(JsonFileHandler):
     def channel_move_to_top(self, channel_name: str) -> ChannelErrorState:
         if channel_name == "":
             return ChannelErrorState.CHANNEL_NAME_IS_EMPTY
+        channel_name = channel_name.lower()
         if channel_name not in self._preferences["channels"]:
             return ChannelErrorState.CHANNEL_DOES_NOT_EXIST
         self._preferences["channels"].remove(channel_name)

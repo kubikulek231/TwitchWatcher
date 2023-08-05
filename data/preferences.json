@@ -1,8 +1,13 @@
 {
     "channels": [
-	"skill4ltu"
+	"quickybaby",
+	"skill4ltu",
+	"dakillzor",
+	"iyouxin",
+	"marty_vole"
     ],
     "options": {
-        "app_run_on_start": false
+        "app_run_on_start": false,
+	"app_save_on_exit": true
     }
 }

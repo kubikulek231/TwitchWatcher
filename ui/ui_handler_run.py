@@ -2,9 +2,9 @@ import time
 
 from pynput import keyboard
 
-from ui_handler_run_data import UIDataManager
-from watcher import Watcher
-from watcher_data_container import WatcherInputDataContainer
+from ui.ui_handler_run_data import UIDataManager
+from watcher.watcher_data_container import WatcherInputDataContainer
+from watcher.watcher_main import Watcher
 
 
 class UIHandlerRun:

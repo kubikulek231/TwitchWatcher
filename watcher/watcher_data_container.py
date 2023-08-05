@@ -17,7 +17,6 @@ class WatcherInputDataContainer:
                  chat_claim_interval: int = 60,
                  drop_inventory_interval: int = 180
                  ):
-
         self.channels = channels
         self.cookie_data = cookie_data
         self.channel_search_interval = channel_search_interval

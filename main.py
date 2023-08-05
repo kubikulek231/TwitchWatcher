@@ -1,13 +1,12 @@
 import sys
-
-from ui_handler_main import UIHandlerMain
-from ui_handler_run import UIHandlerRun
-from ui_handler_settings import UIHandlerSettings
-from cookie_handler import CookieHandler
-from preferences_handler import PreferencesHandler, ChannelErrorState
-from watcher_data_container import WatcherInputDataContainer
-
 import time
+
+from handler.cookie_handler import CookieHandler
+from handler.preferences_handler import PreferencesHandler, ChannelErrorState
+from ui.ui_handler_main import UIHandlerMain
+from ui.ui_handler_run import UIHandlerRun
+from ui.ui_handler_settings import UIHandlerSettings
+from watcher.watcher_data_container import WatcherInputDataContainer
 
 if __name__ == "__main__":
     cookie_handler = CookieHandler()
@@ -20,12 +19,14 @@ if __name__ == "__main__":
         skipped = False
         UIHandlerMain.show_logo()
         print(" - Starting in 10 seconds")
-        print("    Press Ctrl+C to cancel")
+        print("   Press Ctrl+C to cancel")
+        print("")
         try:
             for i in range(10, 0, -1):
-                print(f" {i}")
+                print(f"   {i}")
                 time.sleep(1)
         except KeyboardInterrupt:
+            print("")
             print(" - Canceled")
             skipped = True
         # run watcher
@@ -67,8 +68,9 @@ if __name__ == "__main__":
                     if channel_to_remove is None:
                         break
                     print("")
-                    print(" Channel removed successfully." if preferences_handler.channel_remove(channel_to_remove)
-                                                              is None else " Channel does not exist.")
+                    print(" Channel removed successfully."
+                          if preferences_handler.channel_remove(channel_to_remove)
+                          is None else " Channel does not exist.")
             case 4:
                 # move channel up
                 UIHandlerMain.show_logo()

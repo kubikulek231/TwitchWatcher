@@ -1,4 +1,4 @@
-from json_handler import JsonFileHandler, JsonErrorState
+from handler.json_handler import JsonFileHandler, JsonErrorState
 
 
 class CookieHandler(JsonFileHandler):

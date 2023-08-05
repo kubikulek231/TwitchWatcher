@@ -1,10 +1,10 @@
-from selenium.webdriver import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
 import undetected_chromedriver as uc
 from selenium import webdriver
-from random_sleep import RandomSleep
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait
+
+from misc.random_sleep import RandomSleep
 
 
 class BrowserHandler:
@@ -51,7 +51,7 @@ class BrowserHandler:
         if self._driver is not None:
             try:
                 self._driver.quit()
-            except Exception as e:
+            except Exception:
                 pass
             self._driver = None
             return True
@@ -87,8 +87,7 @@ class BrowserHandler:
             if self.debug:
                 print(e)
 
-    def element_is_invisible_present(self, xpath: str, timeout: float = 5) -> ec.WebElement:
-        wait = WebDriverWait(self._driver, timeout)
+    def element_is_invisible_present(self, xpath: str) -> ec.WebElement:
         try:
             return self._driver.execute_script('return document.querySelector("' + xpath + '")')
         except Exception as e:

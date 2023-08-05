@@ -1,8 +1,8 @@
 import unicodedata
 
-from browser_handler import BrowserHandler
-from twitch_handler import TwitchHandler
-from watcher_data_container import WatcherOutputDataContainer, WatcherInputDataContainer, WatcherRoutineState
+from handler.browser_handler import BrowserHandler
+from handler.twitch_handler import TwitchHandler
+from watcher.watcher_data_container import WatcherOutputDataContainer, WatcherInputDataContainer, WatcherRoutineState
 
 
 class WatcherCriticalError(Exception):
@@ -23,7 +23,9 @@ def using_tab(index):
             self._browser_handler.browser_switch_to_tab(index)
             return_value = input_function(self, *args, **kwargs)
             return return_value
+
         return wrapper
+
     return decorator
 
 
@@ -135,4 +137,3 @@ class WatcherRoutine:
         except Exception as e:
             self.output_data_container.critical_error = True
             self.output_data_container.error_message.append(str(e))
-

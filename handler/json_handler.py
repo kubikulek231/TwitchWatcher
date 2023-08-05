@@ -1,6 +1,6 @@
 import json
-from enum import Enum
 import os
+from enum import Enum
 
 
 class JsonErrorState(Enum):
@@ -49,7 +49,7 @@ class JsonFileHandler:
                 print(e)
             return JsonErrorState.JSON_UNHANDLED_EXCEPTION_OCCURRED
 
-    def load_from_string(self,  json_string: str) -> JsonErrorState:
+    def load_from_string(self, json_string: str) -> JsonErrorState:
         try:
             self._json_file = json.loads(json_string)
         except json.JSONDecodeError:

@@ -10,12 +10,12 @@ class UICleaner:
 
 class UIHandlerMain:
     def __init__(
-        self,
-        are_cookies_loaded: bool,
-        are_preferences_loaded: bool,
-        cookies: dict,
-        options: dict,
-        channels: list,
+            self,
+            are_cookies_loaded: bool,
+            are_preferences_loaded: bool,
+            cookies: dict,
+            options: dict,
+            channels: list,
     ):
         self.are_cookies_loaded = are_cookies_loaded
         self.are_preferences_loaded = are_preferences_loaded
@@ -45,7 +45,6 @@ class UIHandlerMain:
 
     @staticmethod
     def print_channel_bar(channel_list: list, channels_per_line: int = 3):
-        channels_per_line = 3
         channel_string = "   "
         for i, channel in enumerate(channel_list, 0):
             if i != 0:
@@ -95,6 +94,3 @@ class UIHandlerMain:
         option = self._get_option()
         UICleaner.clear_console()
         return option
-
-
-

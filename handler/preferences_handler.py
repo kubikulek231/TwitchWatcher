@@ -1,5 +1,6 @@
 from enum import Enum
-from json_handler import JsonFileHandler, JsonErrorState
+
+from handler.json_handler import JsonFileHandler, JsonErrorState
 
 
 class ChannelErrorState(Enum):

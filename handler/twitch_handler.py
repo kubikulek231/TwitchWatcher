@@ -1,5 +1,4 @@
-import html
-from random_sleep import RandomSleep
+from misc.random_sleep import RandomSleep
 
 
 class TwitchHandler:
@@ -101,12 +100,12 @@ class TwitchHandler:
 
     def twitch_drop_inventory_latest_drop_get_name(self) -> str:
         latest_drop_name_xpath = '//*[@id="root"]/div/div[2]/div/main/div[1]/div[3]/div/div/div/div/div/div[1]/div[4]' \
-                                '/div[2]/div[1]/div/div[1]/div[2]/div[2]/p'
+                                 '/div[2]/div[1]/div/div[1]/div[2]/div[2]/p'
         return self._browser_handler.element_get_text(latest_drop_name_xpath)
 
     def twitch_drop_inventory_latest_drop_get_game(self) -> str:
         latest_drop_game_xpath = '//*[@id="root"]/div/div[2]/div/main/div[1]/div[3]/div/div/div/div/div/div[1]/div[4]' \
-                               '/div[2]/div[1]/div/div[2]/p'
+                                 '/div[2]/div[1]/div/div[2]/p'
         return self._browser_handler.element_get_text(latest_drop_game_xpath)
 
     def twitch_drop_inventory_latest_drop_get_time(self) -> str:

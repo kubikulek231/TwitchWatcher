@@ -21,7 +21,7 @@ class WatcherRoutineTimer:
         self.end_time = self.start_time + self.interval_seconds
         self.temp_interval = None
 
-    def set_temp_and_reset(self,  temp_interval_seconds: int = 1) -> None:
+    def set_temp_and_reset(self, temp_interval_seconds: int = 1) -> None:
         self.temp_interval = time.time() + temp_interval_seconds
 
     def _temp_check(self) -> bool:
@@ -30,4 +30,3 @@ class WatcherRoutineTimer:
                 self.reset()
                 return True
         return False
-

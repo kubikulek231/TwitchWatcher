@@ -1,6 +1,6 @@
 import time
 
-from watcher_data_container import WatcherRoutineState, WatcherOutputDataContainer
+from watcher.watcher_data_container import WatcherRoutineState, WatcherOutputDataContainer
 
 
 class UIDataManager:
@@ -107,7 +107,7 @@ class UIDataManager:
                 print(f" {time_string} @Watcher: stopping ")
                 self._reset_watch_time_counter()
 
-    def update_data(self,  data: WatcherOutputDataContainer) -> None:
+    def update_data(self, data: WatcherOutputDataContainer) -> None:
         if self._data != data:
             self._data = data
             self._is_new = True

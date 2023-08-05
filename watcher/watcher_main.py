@@ -1,9 +1,10 @@
-from enum import Enum
-from watcher_data_container import WatcherInputDataContainer, WatcherOutputDataContainer, WatcherRoutineState
-from multiprocessing import Event, Process, Queue
-from watcher_routine import WatcherRoutine, WatcherCriticalError, WatcherError
-from watcher_routine_timer import WatcherRoutineTimer
 import time
+from enum import Enum
+from multiprocessing import Event, Process, Queue
+
+from watcher.watcher_data_container import WatcherInputDataContainer, WatcherOutputDataContainer, WatcherRoutineState
+from watcher.watcher_routine import WatcherRoutine, WatcherCriticalError, WatcherError
+from watcher.watcher_routine_timer import WatcherRoutineTimer
 
 
 class WatcherErrorState(Enum):
@@ -45,7 +46,7 @@ class Watcher:
         if self._queue is not None:
             try:
                 return self._queue.get(block=False)
-            except Exception as e:
+            except Exception:
                 pass
 
     def _routine(self, input_data_container: WatcherInputDataContainer, stop_event: Event) -> None:
@@ -143,6 +144,3 @@ class Watcher:
         common_error_number += 1
         if common_error_number > 3:
             output_data_container.critical_error = True
-
-
-

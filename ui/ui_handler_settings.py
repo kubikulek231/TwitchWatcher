@@ -1,4 +1,3 @@
-
 class UIHandlerSettings:
 
     @staticmethod
@@ -35,7 +34,3 @@ class UIHandlerSettings:
                 return cookie_file
             except ValueError:
                 print(" Invalid cookie JSON. Try again.")
-
-
-
-

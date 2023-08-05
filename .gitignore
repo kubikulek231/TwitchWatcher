@@ -4,3 +4,5 @@ downloaded_files
 chromedriver
 venv
 data
+cookies.json
+preferences.json

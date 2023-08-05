@@ -38,7 +38,7 @@ class UIHandlerMain:
               " - Channels:")
 
         if not channel_list:
-            print(" No channels added.")
+            print("   No channels added.")
             return
 
         self.print_channel_bar(channel_list)

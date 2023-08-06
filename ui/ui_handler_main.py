@@ -18,7 +18,7 @@ class UIHandlerMain:
             channels: list,
             print_ui: bool = True,
             clear_console: bool = True
-            ):
+    ):
 
         self.are_cookies_loaded = are_cookies_loaded
         self.are_preferences_loaded = are_preferences_loaded
@@ -47,12 +47,12 @@ class UIHandlerMain:
 
         self.print_channel_bar(channel_list)
 
-    def update(self,  options: dict, channels: list) -> None:
+    def update(self, options: dict, channels: list) -> None:
         self.channels = channels
         self.options = options
 
     @staticmethod
-    def print_channel_bar(channel_list: list, channels_per_line: int = 3):
+    def print_channel_bar(channel_list: list, channels_per_line: int = 3, end: str = ""):
         if not channel_list:
             print("    No channels added.")
             return
@@ -63,7 +63,7 @@ class UIHandlerMain:
             if i % channels_per_line == 0 and i != 0:
                 channel_string += "\n   "
             channel_string += f" ({i + 1}){channel}"
-        print(channel_string)
+        print(channel_string + end)
 
     def on_begin_run_fail(self):
         print("\n - No channels or cookies are set")

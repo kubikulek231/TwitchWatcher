@@ -2,6 +2,7 @@ import time
 
 from pynput import keyboard
 
+from ui.ui_handler_main import UIHandlerMain, UICleaner
 from ui.ui_handler_run_data import UIDataManager
 from watcher.watcher_data_container import WatcherInputDataContainer
 from watcher.watcher_main import Watcher
@@ -12,8 +13,13 @@ class UIHandlerRun:
         self._running = True
         self._stopping = False
         self._watcher = Watcher(input_data_container)
+        self._channels = input_data_container.channels
 
     def _watcher_working(self) -> None:
+        UICleaner.clear_console()
+        UIHandlerMain.show_logo()
+        print(" - Channels")
+        UIHandlerMain.print_channel_bar(self._channels, end="\n")
         print(f" {UIDataManager.get_current_time_string()} @User: watcher START requested")
         print("           Press the ESC key to stop anytime")
         try:

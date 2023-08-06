@@ -1,4 +1,5 @@
 import os
+import time
 
 
 class UICleaner:
@@ -64,6 +65,12 @@ class UIHandlerMain:
             channel_string += f" ({i + 1}){channel}"
         print(channel_string)
 
+    def on_begin_run_fail(self):
+        print("\n - No channels or cookies are set")
+        print("    Please set channels and cookies first\n")
+        self.print_ui = False
+        self.clear_console = False
+
     def _show_options(self) -> None:
         options = [
             "",
@@ -94,6 +101,22 @@ class UIHandlerMain:
                     print(" Invalid option. Try again.")
             except ValueError:
                 print(" Invalid option. Try again.")
+
+    @staticmethod
+    def run_on_start_countdown(secs: int = 10) -> bool:
+        print(f" - Starting in {secs} seconds")
+        print("    Press Ctrl+C to cancel")
+        print("")
+        try:
+            for i in range(secs, 0, -1):
+                print(f"   {i}")
+                time.sleep(1)
+            print("")
+            return True
+        except KeyboardInterrupt:
+            print("")
+            print(" - Canceled")
+            return False
 
     def run(self) -> int:
         if self.clear_console:

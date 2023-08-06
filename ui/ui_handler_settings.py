@@ -1,4 +1,21 @@
+from ui.ui_handler_main import UICleaner, UIHandlerMain
+from handler.preferences_handler import PreferencesHandler
+from handler.cookie_handler import CookieHandler
+
+
 class UIHandlerSettings:
+    def __init__(self,  preference_handler: PreferencesHandler, cookie_handler: CookieHandler):
+        self.preference_handler = preference_handler
+        self.cookie_handler = cookie_handler
+        self.options = self.preference_handler.options
+        self.channels = self.preference_handler.channels
+        self.cookie_data = self.cookie_handler.cookie_data
+
+    @staticmethod
+    def _clear_and_show_logo():
+        UICleaner.clear_console()
+        UIHandlerMain.show_logo()
+
 
     @staticmethod
     def input_channel() -> str:

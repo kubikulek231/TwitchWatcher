@@ -53,16 +53,16 @@ class BrowserHandler:
             chrome_options.add_argument("--mute-audio")
 
             if os.name == "nt":  # Windows
-                driver_path = "chromedriver.exe"
+                driver_path = "chromedriver/chromedriver.exe"
             else:  # Assuming other OS (Linux, macOS, etc.)
-                driver_path = "chromedriver"
+                driver_path = "chromedriver/chromedriver"
 
             if self._is_rpi4:
                 driver_path = "/usr/lib/chromium-browser/chromedriver"
-                print("   rpi4 detected")
+                print("         rpi4 detected")
 
             self._driver = uc.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
-                                     driver_executable_path=f"chromedriver/{driver_path}")
+                                     driver_executable_path=f"{driver_path}")
             return True
         return False
 

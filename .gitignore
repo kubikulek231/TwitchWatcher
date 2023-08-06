@@ -1,7 +1,8 @@
 .idea
 __pycache__
 downloaded_files
-chromedriver
+chromedriver/chromedriver
+chromedriver/chromedriver.exe
 venv
 data
 cookies.json

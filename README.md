@@ -10,4 +10,4 @@
 - should work on both: Windows, Linux
 - Python 3.11 required
 - uses Chrome so chromedriver/.exe needs to be put in chromedriver dir
-- uses selenium, undetected_chromedriver, pynput
+- uses selenium, undetected_chromedriver, keyboard

@@ -7,6 +7,9 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
 from misc.random_sleep import RandomSleep
+import platform
+
+
 
 
 class BrowserHandler:
@@ -29,6 +32,10 @@ class BrowserHandler:
     def tab_index_current(self):
         return self._tab_index_current
 
+    @staticmethod
+    def _is_rpi4():
+        return platform.machine() == 'armv7l'
+
     def browser_import_cookies(self, cookie_data: dict, url: str) -> bool:
         try:
             self.driver.get(url)
@@ -44,6 +51,8 @@ class BrowserHandler:
         if self._driver is None:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument("--mute-audio")
+            if self._is_rpi4:
+                chrome_options.binary_location = "/usr/bin/chromium-browser"
 
             if os.name == "nt":  # Windows
                 driver_path = "chromedriver.exe"

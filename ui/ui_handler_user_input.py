@@ -48,11 +48,11 @@ class UIHandlerUserInput:
 
     @staticmethod
     def save_preferences_result(success, end: str = "") -> None:
-        print((" Preferences saved successfully." if success is None else " Preferences already saved.") + end)
+        print((" Preferences saved successfully." if success is None else " Could not save preferences.") + end)
 
     @staticmethod
     def save_cookies_result(success, end: str = "") -> None:
-        print((" Cookies saved successfully." if success is None else " Cookies already saved.") + end)
+        print((" Cookies saved successfully." if success is None else " Could not save cookies.") + end)
 
     @staticmethod
     def _input_channel() -> str:

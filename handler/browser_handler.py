@@ -47,7 +47,7 @@ class BrowserHandler:
                 print(e)
             return False
 
-    def browser_start(self, headless: bool = True) -> bool:
+    def browser_start(self, headless: bool = False) -> bool:
         if self._driver is None:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument("--mute-audio")

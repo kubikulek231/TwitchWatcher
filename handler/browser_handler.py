@@ -51,8 +51,8 @@ class BrowserHandler:
         if self._driver is None:
             chrome_options = webdriver.ChromeOptions()
             chrome_options.add_argument("--mute-audio")
-            if self._is_rpi4:
-                chrome_options.binary_location = "/usr/bin/chromium-browser"
+            """if self._is_rpi4:
+                chrome_options.binary_location = '/usr/bin/chromium-browser'"""
 
             if os.name == "nt":  # Windows
                 driver_path = "chromedriver.exe"

@@ -13,15 +13,18 @@ class UIHandlerMain:
             self,
             are_cookies_loaded: bool,
             are_preferences_loaded: bool,
-            cookies: dict,
             options: dict,
             channels: list,
-    ):
+            print_ui: bool = True,
+            clear_console: bool = True
+            ):
+
         self.are_cookies_loaded = are_cookies_loaded
         self.are_preferences_loaded = are_preferences_loaded
-        self.cookies = cookies
         self.options = options
         self.channels = channels
+        self.print_ui = print_ui
+        self.clear_console = clear_console
 
     @staticmethod
     def show_logo() -> None:
@@ -43,8 +46,15 @@ class UIHandlerMain:
 
         self.print_channel_bar(channel_list)
 
+    def update(self,  options: dict, channels: list) -> None:
+        self.channels = channels
+        self.options = options
+
     @staticmethod
     def print_channel_bar(channel_list: list, channels_per_line: int = 3):
+        if not channel_list:
+            print("    No channels added.")
+            return
         channel_string = "   "
         for i, channel in enumerate(channel_list, 0):
             if i != 0:
@@ -86,11 +96,12 @@ class UIHandlerMain:
                 print(" Invalid option. Try again.")
 
     def run(self) -> int:
-        UICleaner.clear_console()
-        self.show_logo()
-        self._show_info()
-        self._show_channels()
-        self._show_options()
+        if self.clear_console:
+            UICleaner.clear_console()
+        if self.print_ui:
+            self.show_logo()
+            self._show_info()
+            self._show_channels()
+            self._show_options()
         option = self._get_option()
-        UICleaner.clear_console()
         return option

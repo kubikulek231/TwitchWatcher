@@ -42,7 +42,7 @@ class UIHandlerRun:
             print(f" {UIDataManager.get_current_time_string()} @User: watcher STOP requested")
 
     @staticmethod
-    def browser_is_webdriver_present() -> bool:
+    def _is_webdriver_present() -> bool:
         if os.name == "nt":  # Windows
             driver_path = "geckodriver/geckodriver.exe"
         else:  # Assuming other OS (Linux, macOS, etc.)
@@ -50,7 +50,7 @@ class UIHandlerRun:
         return os.path.exists(driver_path)
 
     def run(self) -> None:
-        if self.browser_is_webdriver_present():
+        if self._is_webdriver_present():
             listener = keyboard.on_release(callback=self._on_key_release)
             self._watcher_working()
             keyboard.unhook(listener)

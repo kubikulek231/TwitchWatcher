@@ -6,7 +6,6 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium_stealth import stealth
 
 from misc.random_sleep import RandomSleep
 
@@ -52,6 +51,13 @@ class BrowserHandler:
                 driver_path = "geckodriver/geckodriver.exe"
             else:  # Assuming other OS (Linux, macOS, etc.)
                 driver_path = "geckodriver/geckodriver"
+
+            firefox_options.set_preference("dom.webdriver.enabled", False)
+            firefox_options.set_preference("useAutomationExtension", False)
+            firefox_options.add_argument("--disable-blink-features=AutomationControlled")
+            firefox_options.set_preference("general.useragent.override",
+                                   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                                   "Chrome/58.0.3029.110 Safari/537.3")
 
             firefox_service = FirefoxService(executable_path=driver_path)
             self._driver = webdriver.Firefox(service=firefox_service, options=firefox_options)

@@ -16,7 +16,6 @@ class BrowserHandler:
         self._driver = None
         self._tab_index_max = 0
         self._tab_index_current = 0
-        self.debug = True
 
     @property
     def driver(self):
@@ -37,8 +36,7 @@ class BrowserHandler:
                 self.driver.add_cookie(cookie)
             return True
         except Exception as e:
-            if self.debug:
-                print(e)
+            print("following error occurred while importing cookies:", e)
             return False
 
     def browser_start(self) -> bool:
@@ -99,25 +97,22 @@ class BrowserHandler:
         wait = WebDriverWait(self._driver, timeout)
         try:
             return wait.until(ec.presence_of_element_located((By.XPATH, xpath)))
-        except Exception as e:
-            if self.debug:
-                print(e)
+        except Exception:
+            pass
 
     def element_is_invisible_present(self, xpath: str) -> ec.WebElement:
         try:
             return self._driver.execute_script('return document.querySelector("' + xpath + '")')
-        except Exception as e:
-            if self.debug:
-                print(e)
+        except Exception:
+            pass
 
     def element_is_enabled(self, xpath: str, timeout: float = 5) -> ec.WebElement:
         wait = WebDriverWait(self._driver, timeout)
         try:
             element = wait.until(ec.presence_of_element_located((By.XPATH, xpath)))
             return element.is_enabled()
-        except Exception as e:
-            if self.debug:
-                print(e)
+        except Exception:
+            pass
 
     def element_click(self, xpath: str, timeout: float = 5) -> bool:
         wait = WebDriverWait(self._driver, timeout)
@@ -126,27 +121,24 @@ class BrowserHandler:
             element.click()
             RandomSleep.sleep(4, 3)
             return True
-        except Exception as e:
-            if self.debug:
-                print(e)
+        except Exception:
+            pass
 
     def element_get_name(self, xpath: str, attribute: str = 'class', timeout: float = 5) -> str:
         wait = WebDriverWait(self._driver, timeout)
         try:
             element = wait.until(ec.presence_of_element_located((By.XPATH, xpath)))
             return element.get_attribute(attribute)
-        except Exception as e:
-            if self.debug:
-                print(e)
+        except Exception:
+            pass
 
     def element_get_text(self, xpath: str, timeout: float = 5) -> str:
         wait = WebDriverWait(self._driver, timeout)
         try:
             element = wait.until(ec.presence_of_element_located((By.XPATH, xpath)))
             return self._driver.execute_script('return arguments[0].textContent;', element)
-        except Exception as e:
-            if self.debug:
-                print(e)
+        except Exception:
+            pass
 
     def elements_is_any_present(self, xpath: str):
         script = "return document.evaluate('" + xpath.replace("'", "\\'") + "', document, null, XPathResult.ANY_TYPE," \

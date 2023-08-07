@@ -1,12 +1,10 @@
 import os
 
-# import undetected_chromedriver as uc
+import undetected_chromedriver as uc
 from selenium import webdriver as wd
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.service import Service
-
 from misc.random_sleep import RandomSleep
 import platform
 
@@ -52,14 +50,12 @@ class BrowserHandler:
             chrome_options.add_argument("--mute-audio")
 
             if os.name == "nt":  # Windows
-                driver_path = "chromedriver/chromedriver.exe"
+                driver_path = "/chromedriver/chromedriver.exe"
             else:  # Assuming other OS (Linux, macOS, etc.)
-                driver_path = "chromedriver/chromedriver"
+                driver_path = "/chromedriver/chromedriver"
 
-
-            """self._driver = wd.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
-                                     driver_executable_path=f"{driver_path}")"""
-            self._driver = wd.Chrome(service=Service(driver_path).start(), options=chrome_options,)
+            self._driver = uc.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
+                                     driver_executable_path=f"{driver_path}")
             return True
         return False
 

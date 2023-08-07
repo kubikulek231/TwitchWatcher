@@ -52,13 +52,14 @@ class BrowserHandler:
             chrome_options.add_argument("--mute-audio")
 
             if os.name == "nt":  # Windows
-                driver_path = "chromedriver.exe"
+                driver_path = "driver/chromedriver.exe"
             else:  # Assuming other OS (Linux, macOS, etc.)
-                driver_path = "chromedriver"
+                driver_path = "driver/chromedriver"
 
             """self._driver = uc.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
                                      driver_executable_path=f"{driver_path}")"""
-            self._driver = wd.Chrome(options=chrome_options)
+
+            self._driver = wd.Chrome(options=chrome_options, service=Service(f"{driver_path}"))
             return True
         return False
 

@@ -16,7 +16,7 @@ class BrowserHandler:
         self._driver = None
         self._tab_index_max = 0
         self._tab_index_current = 0
-        self.debug = False
+        self.debug = True
 
     @property
     def driver(self):

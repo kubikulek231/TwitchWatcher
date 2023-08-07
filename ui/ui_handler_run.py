@@ -44,9 +44,9 @@ class UIHandlerRun:
     @staticmethod
     def _is_webdriver_present() -> bool:
         if os.name == "nt":  # Windows
-            driver_path = "geckodriver/geckodriver.exe"
+            driver_path = "chromedriver/chromedriver.exe"
         else:  # Assuming other OS (Linux, macOS, etc.)
-            driver_path = "geckodriver/geckodriver"
+            driver_path = "chromedriver/chromedriver"
         return os.path.exists(driver_path)
 
     def run(self) -> None:

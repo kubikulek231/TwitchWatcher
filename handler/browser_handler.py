@@ -1,13 +1,14 @@
 import os
 
-from selenium import webdriver
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
+# import undetected_chromedriver as uc
+from selenium import webdriver as wd
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.service import Service
 
 from misc.random_sleep import RandomSleep
+import platform
 
 
 class BrowserHandler:
@@ -30,6 +31,10 @@ class BrowserHandler:
     def tab_index_current(self):
         return self._tab_index_current
 
+    @staticmethod
+    def _is_rpi4():
+        return platform.machine() == 'armv7l'
+
     def browser_import_cookies(self, cookie_data: dict, url: str) -> bool:
         try:
             self.driver.get(url)
@@ -43,24 +48,18 @@ class BrowserHandler:
 
     def browser_start(self, headless: bool = False) -> bool:
         if self._driver is None:
-            firefox_options = FirefoxOptions()
-            if headless:
-                firefox_options.add_argument("--headless")
+            chrome_options = wd.ChromeOptions()
+            chrome_options.add_argument("--mute-audio")
 
             if os.name == "nt":  # Windows
-                driver_path = "geckodriver/geckodriver.exe"
+                driver_path = "chromedriver/chromedriver.exe"
             else:  # Assuming other OS (Linux, macOS, etc.)
-                driver_path = "geckodriver/geckodriver"
+                driver_path = "chromedriver/chromedriver"
 
-            firefox_options.set_preference("dom.webdriver.enabled", False)
-            firefox_options.set_preference("useAutomationExtension", False)
-            firefox_options.add_argument("--disable-blink-features=AutomationControlled")
-            firefox_options.set_preference("general.useragent.override",
-                                   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                                   "Chrome/58.0.3029.110 Safari/537.3")
 
-            firefox_service = FirefoxService(executable_path=driver_path)
-            self._driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
+            """self._driver = wd.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
+                                     driver_executable_path=f"{driver_path}")"""
+            self._driver = wd.Chrome(service=Service(driver_path).start(), options=chrome_options,)
             return True
         return False
 

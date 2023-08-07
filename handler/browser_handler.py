@@ -46,15 +46,21 @@ class BrowserHandler:
                 print(e)
             return False
 
-    def browser_start(self, headless: bool = False) -> bool:
+    def browser_start(self) -> bool:
         if self._driver is None:
             chrome_options = wd.ChromeOptions()
             chrome_options.add_argument("--mute-audio")
+            chrome_options.add_argument('--headless')
+            chrome_options.add_argument('--no-sandbox')
+            chrome_options.add_argument('--disable-dev-shm-usage')
 
             if os.name == "nt":  # Windows
                 driver_path = "driver/chromedriver.exe"
             else:  # Assuming other OS (Linux, macOS, etc.)
                 driver_path = "driver/chromedriver"
+
+            if self._is_rpi4():
+                driver_path = "/usr/lib/chromium-browser/chromedriver"
 
             """self._driver = uc.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
                                      driver_executable_path=f"{driver_path}")"""

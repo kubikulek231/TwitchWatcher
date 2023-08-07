@@ -2,7 +2,7 @@
 
 - Simple automated tool for watching Twitch streames and collectings drops/chat bonusses
 - Using selenium-chrome python avoiding Twitch API
-- Built especially for running on Raspberry Pi4.
+- Built especially for running on Raspberry Pi4
 
 ## Dependencies
 
@@ -13,20 +13,36 @@
 
 ## How to RPi4 (ARM)
 - Tested on RPi4 running Ubuntu Server (ARM64)
-- On arm there's no Chrome support, so workaround with Chromium has to be done
-- Update
- '''sudo apt-get update && sudo apt-get upgrade'''
-- Clone this repository with 
- '''git clone https://github.com/kubikulek231/TwitchWatcher/'
-- Install python3.11 and pip
- '''sudo apt-get install python3.11'''
- '''sudo apt-get install pip3'''
-- Now install Chromium browser
- '''sudo apt-get install chromium-browser'''
- '''sudo pip3 install selenium'''
- '''sudo pip3 install undetected-chromedriver'
- '''sudo pip3 install keyboard'''
- '''sudo pip3 install platform'''
-- Now install Chromium Webdriver (no need to put 
- '''sudo apt-get install chromium-webdriver'''
-- Run 'sudo python3 main.py''' and you should be done
+- On ARM, there's no Chrome support, so a workaround with Chromium has to be done.
+
+**Update and upgrade**
+```bash
+sudo apt-get update && sudo apt-get upgrade
+```
+**Clone this repository**
+```bash
+git clone https://github.com/kubikulek231/TwitchWatcher/
+```
+**Install python3.11 and pip**
+```bash
+sudo apt-get install python3.11
+sudo apt-get install pip3
+```
+
+**Install Chromium browser and dependencies**
+```bash
+sudo apt-get install chromium-browser
+sudo pip3 install selenium
+sudo pip3 install undetected-chromedriver
+sudo pip3 install keyboard
+sudo pip3 install platform
+```
+**Install Chromium Webdriver**
+```bash
+sudo apt-get install chromium-webdriver
+```
+
+**Run the main script**
+```bash
+sudo python3 main.py
+```

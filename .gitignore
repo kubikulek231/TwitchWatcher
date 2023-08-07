@@ -7,3 +7,6 @@ venv
 data
 cookies.json
 preferences.json
+geckodriver/geckodriver
+geckodriver/geckodriver.exe
+geckodriver.log

@@ -1,15 +1,14 @@
 import os
 
-import undetected_chromedriver as uc
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium_stealth import stealth
 
 from misc.random_sleep import RandomSleep
-import platform
-
-
 
 
 class BrowserHandler:
@@ -32,10 +31,6 @@ class BrowserHandler:
     def tab_index_current(self):
         return self._tab_index_current
 
-    @staticmethod
-    def _is_rpi4():
-        return platform.machine() == 'armv7l'
-
     def browser_import_cookies(self, cookie_data: dict, url: str) -> bool:
         try:
             self.driver.get(url)
@@ -49,20 +44,17 @@ class BrowserHandler:
 
     def browser_start(self, headless: bool = False) -> bool:
         if self._driver is None:
-            chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument("--mute-audio")
+            firefox_options = FirefoxOptions()
+            if headless:
+                firefox_options.add_argument("--headless")
 
             if os.name == "nt":  # Windows
-                driver_path = "chromedriver/chromedriver.exe"
+                driver_path = "geckodriver/geckodriver.exe"
             else:  # Assuming other OS (Linux, macOS, etc.)
-                driver_path = "chromedriver/chromedriver"
+                driver_path = "geckodriver/geckodriver"
 
-            if self._is_rpi4:
-                driver_path = "/usr/lib/chromium-browser/chromedriver"
-                print("         rpi4 detected")
-
-            self._driver = uc.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
-                                     driver_executable_path=f"{driver_path}")
+            firefox_service = FirefoxService(executable_path=driver_path)
+            self._driver = webdriver.Firefox(service=firefox_service, options=firefox_options)
             return True
         return False
 

@@ -3,6 +3,7 @@ import time
 
 import keyboard
 
+from misc.is_rpi4 import IsRPI4
 from ui.ui_handler_main import UIHandlerMain, UICleaner
 from ui.ui_handler_run_data import UIDataManager
 from watcher.watcher_data_container import WatcherInputDataContainer
@@ -47,6 +48,8 @@ class UIHandlerRun:
             driver_path = f"driver/{driver_file_name}.exe"
         else:  # Assuming other OS (Linux, macOS, etc.)
             driver_path = f"driver/{driver_file_name}"
+        if IsRPI4.is_rpi4():
+            driver_path = "/usr/bin/chromedriver"
         return os.path.exists(driver_path)
 
     def run(self) -> None:

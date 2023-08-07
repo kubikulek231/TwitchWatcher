@@ -1,15 +1,17 @@
 #!/usr/bin/python
-import os
 import io
-import re
+import os
 import random
+import re
 import string
 
 driver_name = 'chromedriver'
 
+
 @staticmethod
 def is_rpi4():
     return platform.machine() == 'armv7l'
+
 
 def get_webdriver_name(driver_file_name: str = "chromedriver") -> bool:
     if os.name == "nt":  # Windows
@@ -19,6 +21,7 @@ def get_webdriver_name(driver_file_name: str = "chromedriver") -> bool:
     if is_rpi4():
         driver_path = '/usr/lib/chromium-browser/chromedriver'
     return driver_path
+
 
 def random_cdc():
     cdc = random.choices(string.ascii_lowercase, k=26)

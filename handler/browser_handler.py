@@ -2,13 +2,12 @@ import os
 
 import undetected_chromedriver as uc
 from selenium import webdriver as wd
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
+from misc.is_rpi4 import IsRPI4
 from misc.random_sleep import RandomSleep
-import platform
 
 
 class BrowserHandler:
@@ -30,10 +29,6 @@ class BrowserHandler:
     @property
     def tab_index_current(self):
         return self._tab_index_current
-
-    @staticmethod
-    def _is_rpi4():
-        return platform.machine() == 'armv7l'
 
     def browser_import_cookies(self, cookie_data: dict, url: str) -> bool:
         try:
@@ -59,8 +54,9 @@ class BrowserHandler:
             else:  # Assuming other OS (Linux, macOS, etc.)
                 driver_path = "driver/chromedriver"
 
-            if self._is_rpi4():
-                driver_path = "/usr/lib/chromium-browser/chromedriver"
+            if IsRPI4.is_rpi4():
+                driver_path = "/usr/bin/chromedriver"
+                # driver_path = "/usr/lib/chromium-browser/chromedriver"
 
             self._driver = uc.Chrome(headless=True, use_subprocess=False, options=chrome_options,
                                      driver_executable_path=f"{driver_path}")

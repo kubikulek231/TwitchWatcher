@@ -52,10 +52,10 @@ class BrowserHandler:
             if os.name == "nt":  # Windows
                 driver_path = "chromedriver/chromedriver.exe"
             else:  # Assuming other OS (Linux, macOS, etc.)
-                driver_path = "./chromedriver/chromedriver"
+                driver_path = "chromedriver/chromedriver"
 
             self._driver = uc.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
-                                     driver_executable_path=f"{driver_path}")
+                                     driver_executable_path=driver_path)
             return True
         return False
 

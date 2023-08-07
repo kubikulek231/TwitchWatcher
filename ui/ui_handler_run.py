@@ -42,11 +42,11 @@ class UIHandlerRun:
             print(f" {UIDataManager.get_current_time_string()} @User: watcher STOP requested")
 
     @staticmethod
-    def _is_webdriver_present() -> bool:
+    def _is_webdriver_present(driver_file_name: str = "chromedriver") -> bool:
         if os.name == "nt":  # Windows
-            driver_path = "chromedriver/chromedriver.exe"
+            driver_path = f"driver/{driver_file_name}.exe"
         else:  # Assuming other OS (Linux, macOS, etc.)
-            driver_path = "chromedriver/chromedriver"
+            driver_path = f"driver/{driver_file_name}"
         return os.path.exists(driver_path)
 
     def run(self) -> None:

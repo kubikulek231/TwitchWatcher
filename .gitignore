@@ -1,12 +1,12 @@
 .idea
 __pycache__
 downloaded_files
-chromedriver/chromedriver
-chromedriver/chromedriver.exe
+driver/chromedriver
+driver/chromedriver.exe
 venv
 data
 cookies.json
 preferences.json
-geckodriver/geckodriver
-geckodriver/geckodriver.exe
+driver/geckodriver
+driver/geckodriver.exe
 geckodriver.log

@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
-from misc.is_rpi4 import IsRPI4
+from misc.is_rpi4 import IsARM
 from misc.random_sleep import RandomSleep
 
 
@@ -54,7 +54,7 @@ class BrowserHandler:
             else:  # Assuming other OS (Linux, macOS, etc.)
                 driver_path = "driver/chromedriver"
 
-            if IsRPI4.is_rpi4():
+            if IsARM.is_arm():
                 driver_path = "/usr/bin/chromedriver"
                 # driver_path = "/usr/lib/chromium-browser/chromedriver"
 

@@ -1,7 +1,7 @@
 import platform
 
 
-class IsRPI4:
+class IsARM:
     @staticmethod
-    def is_rpi4():
-        return platform.machine() == 'armv7l'
+    def is_arm():
+        return platform.machine() == 'aarch64'

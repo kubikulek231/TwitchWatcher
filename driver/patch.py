@@ -4,13 +4,14 @@ import os
 import random
 import re
 import string
+import platform
 
 driver_name = 'chromedriver'
 
 
 @staticmethod
 def is_rpi4():
-    return platform.machine() == 'armv7l'
+    return platform.machine() == 'aarch64'
 
 
 def get_webdriver_name(driver_file_name: str = "chromedriver") -> bool:

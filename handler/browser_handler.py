@@ -43,9 +43,6 @@ class BrowserHandler:
         if self._driver is None:
             chrome_options = wd.ChromeOptions()
             chrome_options.add_argument("--mute-audio")
-            chrome_options.add_argument('--headless')
-            chrome_options.add_argument('--no-sandbox')
-            chrome_options.add_argument('--disable-dev-shm-usage')
 
             if os.name == "nt":  # Windows
                 driver_path = "driver/chromedriver.exe"

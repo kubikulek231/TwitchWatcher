@@ -46,7 +46,7 @@ class UIHandlerRun:
         if os.name == "nt":  # Windows
             driver_path = "chromedriver/chromedriver.exe"
         else:  # Assuming other OS (Linux, macOS, etc.)
-            driver_path = "chromedriver/chromedriver"
+            driver_path = "./chromedriver/chromedriver"
         return os.path.exists(driver_path)
 
     def run(self) -> None:

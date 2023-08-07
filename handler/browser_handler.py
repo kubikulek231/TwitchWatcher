@@ -62,10 +62,8 @@ class BrowserHandler:
             if self._is_rpi4():
                 driver_path = "/usr/lib/chromium-browser/chromedriver"
 
-            """self._driver = uc.Chrome(headless=headless, use_subprocess=False, options=chrome_options,
-                                     driver_executable_path=f"{driver_path}")"""
-
-            self._driver = wd.Chrome(options=chrome_options, service=Service(f"{driver_path}"))
+            self._driver = uc.Chrome(headless=True, use_subprocess=False, options=chrome_options,
+                                     driver_executable_path=f"{driver_path}")
             return True
         return False
 

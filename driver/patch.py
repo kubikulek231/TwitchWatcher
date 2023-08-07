@@ -7,11 +7,17 @@ import string
 
 driver_name = 'chromedriver'
 
+@staticmethod
+def is_rpi4():
+    return platform.machine() == 'armv7l'
+
 def get_webdriver_name(driver_file_name: str = "chromedriver") -> bool:
     if os.name == "nt":  # Windows
         driver_path = f"{driver_file_name}.exe"
     else:  # Assuming other OS (Linux, macOS, etc.)
         driver_path = f"{driver_file_name}"
+    if is_rpi4():
+        driver_path = '/usr/lib/chromium-browser/chromedriver'
     return driver_path
 
 def random_cdc():

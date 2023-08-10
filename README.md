@@ -1,3 +1,5 @@
+> ⚠ **TwitchWatcher** is now deprecated. Selenium gets detected easilly. Here is a [Playwright port](https://github.com/kubikulek231/TwitchWatcherPlaywright).
+
 # TwitchWatcher
 
 - Simple automated tool for watching Twitch streames and collectings drops/chat bonusses
